@@ -9,7 +9,9 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://mongo:27017/nest'),
+    MongooseModule.forRoot('mongodb://localhost:27017', {
+      dbName: 'store',
+    }),
     ProductModule,
     OrderModule,
     ClientModule,

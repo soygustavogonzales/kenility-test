@@ -2,7 +2,7 @@ import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { ProductsService } from './product.service';
 import { CreateProductDto } from './dto/createProduct.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { Product } from './schemas/product.schema';
+import { Product } from '../schemas/product.schema';
 
 @ApiTags('products')
 @Controller('product')
