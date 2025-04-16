@@ -148,17 +148,17 @@ graph TD
     
     subgraph "NestJS Application"
         API[API Gateway] --> |JWT Auth| Auth
-        API --> |Validated Requests| Services
+        API --> |Validated Requests| ServiceLayer
         
         subgraph Authentication
             Auth[Auth Module] --> |Validate| JWT[JWT Strategy]
             Auth --> |Generate Token| TokenService[Token Service]
         end
         
-        subgraph Services
-            Services[Service Layer] --> ProductService[Product Service]
-            Services --> OrderService[Order Service]
-            Services --> ClientService[Client Service]
+        subgraph ServiceComponents
+            ServiceLayer[Service Layer] --> ProductService[Product Service]
+            ServiceLayer --> OrderService[Order Service]
+            ServiceLayer --> ClientService[Client Service]
         end
         
         subgraph Controllers
