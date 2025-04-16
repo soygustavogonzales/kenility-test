@@ -136,4 +136,61 @@ npm run test:cov
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## System Design Diagram
+
+```mermaid
+graph TD
+    subgraph Client
+        UI[User Interface] --> |HTTP Requests| API
+    end
+    
+    subgraph "NestJS Application"
+        API[API Gateway] --> |JWT Auth| Auth
+        API --> |Validated Requests| Services
+        
+        subgraph Authentication
+            Auth[Auth Module] --> |Validate| JWT[JWT Strategy]
+            Auth --> |Generate Token| TokenService[Token Service]
+        end
+        
+        subgraph Services
+            Services[Service Layer] --> ProductService[Product Service]
+            Services --> OrderService[Order Service]
+            Services --> ClientService[Client Service]
+        end
+        
+        subgraph Controllers
+            ProductService --> ProductController[Product Controller]
+            OrderService --> OrderController[Order Controller]
+            ClientService --> ClientController[Client Controller]
+        end
+        
+        subgraph DTOs
+            ProductController --> |Uses| ProductDTO[Product DTOs]
+            OrderController --> |Uses| OrderDTO[Order DTOs]
+            ClientController --> |Uses| ClientDTO[Client DTOs]
+        end
+        
+        subgraph "MongoDB Models"
+            ProductService --> |Uses| ProductModel[Product Model]
+            OrderService --> |Uses| OrderModel[Order Model]
+            ClientService --> |Uses| ClientModel[Client Model]
+        end
+    end
+    
+    subgraph Database
+        MongoDB[(MongoDB)] --> |Stores| ProductCollection[Products]
+        MongoDB --> |Stores| OrderCollection[Orders] 
+        MongoDB --> |Stores| ClientCollection[Clients]
+    end
+    
+    subgraph "API Documentation"
+        Swagger[Swagger UI] --> |Documents| API
+    end
+    
+    subgraph "Docker Environment"
+        AppContainer[App Container] --> |Contains| NestJSApp[NestJS App]
+        DBContainer[MongoDB Container] --> |Contains| MongoDB
+    end 
