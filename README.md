@@ -75,8 +75,8 @@ graph TD
     subgraph "Docker Environment"
         AppContainer[App Container] --> |Contains| NestJSApp[NestJS App]
         DBContainer[MongoDB Container] --> |Contains| MongoDB
-    end 
-
+    end
+```
 
 ## Features
 
